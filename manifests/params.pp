@@ -48,7 +48,7 @@ class one::params {
   # ldap mapping options
   $oned_ldap_mapping_generate = hiera('one::oned::ldap_mapping_generate','undef')
   $oned_ldap_mapping_timeout = hiera('one::oned::ldap_mapping_timeout','undef')
-  $oned_ldap_mapping_filename = hiera('one::oned::ldap_mapping_filename',"${::hostname}.yaml")
+  $oned_ldap_mapping_filename = hiera('one::oned::ldap_mapping_filename',"${facts['networking']['hostname']}.yaml")
   $oned_ldap_mapping_key = hiera('one::oned::ldap_mapping_key','undef')
   $oned_ldap_mapping_default = hiera('one::oned::ldap_mapping_default','undef')
   $oned_ldap_mappings = hiera('one::oned::ldap_mappings',undef)
@@ -178,9 +178,9 @@ class one::params {
   $imaginator_sudoers_file = '/etc/sudoers.d/20_imaginator'
 
   # OS specific params for nodes
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
-      if $::operatingsystemmajrelease == '7' {
+      if $facts['os']['release']['major'] == '7' {
         $node_packages = [
           'device-mapper-libs',
           'opennebula-node-kvm',
@@ -238,8 +238,7 @@ class one::params {
       $libvirtd_source = 'puppet:///modules/one/libvirt-bin.debian'
     }
     default: {
-      fail("Your OS - ${::osfamily} - is not yet supported.
-        Please add required functionality to params.pp")
+      fail("Your OS - ${facts['os']['family']} - is not yet supported. Please add required functionality to params.pp")
     }
   }
 }
