@@ -18,12 +18,12 @@ RSpec.configure do |c|
     # Configure EPEL if appropriate.
     if fact('osfamily') == 'RedHat'
       pp = <<-EOS
-        if $::osfamily == 'RedHat' {
+        if $facts['os']['family'] == 'RedHat' {
           yumrepo {'epel':
-            descr    => "Extra Packages for Enterprise Linux ${::operatingsystemmajrelease} - \\$basearch",
-            baseurl  => "http://download.fedoraproject.org/pub/epel/${::operatingsystemmajrelease}/\\$basearch",
+            descr    => "Extra Packages for Enterprise Linux ${facts['os']['release']['major']} - \\$basearch",
+            baseurl  => "http://download.fedoraproject.org/pub/epel/${facts['os']['release']['major']}/\\$basearch",
             enabled  => 1,
-            gpgkey   => "http://download.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-${::operatingsystemmajrelease}",
+            gpgkey   => "http://download.fedoraproject.org/pub/epel/RPM-GPG-KEY-EPEL-${facts['os']['release']['major']}",
             gpgcheck => 1,
           }
         }
