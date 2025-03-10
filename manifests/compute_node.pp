@@ -25,7 +25,7 @@
 # Apache License Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0.html
 #
-class one::compute_node(
+class one::compute_node (
   $puppetdb = $one::puppetdb,
   $oneid    = $one::oneid,
   $im_mad   = $one::im_mad,
@@ -40,17 +40,17 @@ class one::compute_node(
   include one::compute_node::service
   include one::compute_node::install
 
-  Class['one::prerequisites'] ->
-  Class['one::install'] ->
-  Class['one::config'] ->
-  Class['one::compute_node::install'] ->
-  Class['one::compute_node::config'] ~>
-  Class['one::compute_node::service'] ~>
-  Class['one::service']
+  Class['one::prerequisites']
+  -> Class['one::install']
+  -> Class['one::config']
+  -> Class['one::compute_node::install']
+  ~> Class['one::compute_node::config']
+  ~> Class['one::compute_node::service']
+  ~> Class['one::service']
 
   if ($puppetdb == true) {
     # Register the node as a onehost in the puppetdb
-    @@onehost { $::fqdn :
+    @@onehost { $facts['networking']['fqdn'] :
       tag    => $oneid,
       im_mad => $im_mad,
       vm_mad => $vm_mad,
