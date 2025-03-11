@@ -35,7 +35,7 @@ class one::compute_node::config (
   $manage_sudoer_config    = $one::manage_sudoer_config,
   $oneadmin_sudoers_file   = $one::oneadmin_sudoers_file,
   $imaginator_sudoers_file = $one::imaginator_sudoers_file
-){
+) {
   validate_string ($debian_mirror_url)
   validate_hash   ($preseed_data)
 

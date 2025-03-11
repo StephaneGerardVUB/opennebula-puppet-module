@@ -16,7 +16,7 @@
 # Apache License Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0.html
 #
-class one::oned::config(
+class one::oned::config (
   $hook_scripts_path           = $one::hook_scripts_path,
   $hook_scripts                = $one::hook_scripts,
   $vm_hook_scripts             = $one::vm_hook_scripts,
@@ -59,7 +59,6 @@ class one::oned::config(
   $default_device_prefix       = $one::default_device_prefix,
   $default_cdrom_device_prefix = $one::default_cdrom_device_prefix,
 ) {
-
   if ! member(['YES', 'NO'], $oned_vm_submit_on_hold) {
     fail("oned_vm_submit_on_hold must be one of 'YES' or 'NO'. Actual value: ${oned_vm_submit_on_hold}")
   }
@@ -115,14 +114,14 @@ class one::oned::config(
     owner   => 'root',
     mode    => '0640',
     content => template('one/sched.conf.erb'),
-  } ->
+  }
 
-  file { '/usr/share/one':
+  -> file { '/usr/share/one':
     ensure => directory,
     mode   => '0755',
-  } ->
+  }
 
-  file { '/usr/share/one/hooks':
+  -> file { '/usr/share/one/hooks':
     ensure  => directory,
     ignore  => 'tests/*',
     mode    => '0750',

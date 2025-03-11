@@ -32,7 +32,7 @@ class one::oned::sunstone::config (
   $sunstone_views_template       = $one::sunstone_views_template,
   $sunstone_views_admin_template = $one::sunstone_views_admin_template,
   $sunstone_views_user_template  = $one::sunstone_views_user_template,
-){
+) {
   File {
     owner   => 'root',
     group   => 'oneadmin',
@@ -42,23 +42,23 @@ class one::oned::sunstone::config (
     owner   => 'oneadmin',
     mode    => '0755',
     recurse => true,
-  } ->
-  file { '/etc/one/sunstone-server.conf':
+  }
+  -> file { '/etc/one/sunstone-server.conf':
     ensure  => file,
     content => template('one/sunstone-server.conf.erb'),
     notify  => Service['opennebula-sunstone'],
-  } ->
-  file { '/etc/one/sunstone-views.yaml':
+  }
+  -> file { '/etc/one/sunstone-views.yaml':
     ensure  => file,
     mode    => '0640',
     content => template($sunstone_views_template),
-  } ->
-  file { '/etc/one/sunstone-views/admin.yaml':
+  }
+  -> file { '/etc/one/sunstone-views/admin.yaml':
     ensure  => file,
     mode    => '0640',
     content => template($sunstone_views_admin_template),
-  } ->
-  file { '/etc/one/sunstone-views/user.yaml':
+  }
+  -> file { '/etc/one/sunstone-views/user.yaml':
     ensure  => file,
     mode    => '0640',
     content => template($sunstone_views_user_template),

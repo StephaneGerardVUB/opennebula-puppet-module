@@ -17,7 +17,7 @@
 # Apache License Version 2.0
 # http://www.apache.org/licenses/LICENSE-2.0.html
 #
-class one::compute_node::install(
+class one::compute_node::install (
   $node_packages = $one::node_packages
 ) {
   package { $node_packages:

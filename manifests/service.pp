@@ -2,7 +2,7 @@
 #
 # generic service needed by both (cmopute node and head)
 #
-class one::service(
+class one::service (
   $dbus_srv = $one::dbus_srv,
 ) {
   service { $dbus_srv:

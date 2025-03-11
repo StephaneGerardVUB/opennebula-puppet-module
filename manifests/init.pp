@@ -478,7 +478,6 @@ class one (
   $default_cdrom_device_prefix    = $one::params::default_cdrom_device_prefix,
   $one_version                    = $one::params::one_version,
 ) inherits one::params {
-
   # Data Validation
 
   validate_absolute_path($oneadmin_sudoers_file)
@@ -551,10 +550,10 @@ class one (
   include one::config
   include one::service
 
-  Class['one::prerequisites']->
-  Class['one::install']->
-  Class['one::config']->
-  Class['one::service']
+  Class['one::prerequisites']
+  -> Class['one::install']
+  -> Class['one::config']
+  -> Class['one::service']
 
   if ($oned) {
     if ( member(['kvm','xen','vmware','ec2', 'ganglia','dummy'], $im_mad) ) {

@@ -3,7 +3,7 @@
 #
 # defines the kickstart.ks file
 #
-define one::compute_node::add_kickstart(
+define one::compute_node::add_kickstart (
   $kickstart_tmpl = 'one/kickstart.ks.erb',
   $networkconfig  = $one::compute_node::config::networkconfig,
   $partitions     = $one::compute_node::config::partitions,

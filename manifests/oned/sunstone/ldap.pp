@@ -23,14 +23,14 @@ class one::oned::sunstone::ldap (
 ) {
   package { $oned_sunstone_ldap_pkg:
     ensure => 'latest',
-  } ->
-  file { '/var/lib/one/remotes/auth/default':
+  }
+  -> file { '/var/lib/one/remotes/auth/default':
     ensure => link,
     owner  => 'oneadmin',
     group  => 'oneadmin',
     target => '/var/lib/one/remotes/auth/ldap',
-  } ->
-  file { '/etc/one/auth/ldap_auth.conf':
+  }
+  -> file { '/etc/one/auth/ldap_auth.conf':
     ensure  => file,
     owner   => 'root',
     group   => 'oneadmin',
